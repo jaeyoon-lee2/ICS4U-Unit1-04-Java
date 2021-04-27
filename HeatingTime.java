@@ -59,24 +59,29 @@ public final class HeatingTime {
 
             System.out.print("How many " + foodType + "(s) are you heating "
                              + "(max 3 and they must all be the same items)? ");
-            int foodNumber = myObj.nextInt();
-            if (foodNumber <= MAX_FOOD) {
-                // Process
-                float cookTime = (individualTime / foodNumber)
-                                 * (float) Math.pow(MAX_FOOD, (foodNumber - 1));
+            try {
+                int foodNumber = Integer.parseInt(myObj.nextLine());
 
-                // convert float minutes to minutes and seconds
-                int cookTimeMin = (int) Math.floor(cookTime);
-                float cookTimeSec = (cookTime - cookTimeMin) * MIN_IN_SEC;
+                if (foodNumber > 0 && foodNumber <= MAX_FOOD) {
+                    // Process
+                    float cookTime = (individualTime / foodNumber)
+                                * (float) Math.pow(MAX_FOOD, (foodNumber - 1));
 
-                // Output
-                System.out.println("The total cook time is " + cookTimeMin
-                                   + " min " + cookTimeSec + " sec.");
-            } else {
-                System.out.println("Max number of food is 3.");
+                    // convert float minutes to minutes and seconds
+                    int cookTimeMin = (int) Math.floor(cookTime);
+                    float cookTimeSec = (cookTime - cookTimeMin) * MIN_IN_SEC;
+
+                    // Output
+                    System.out.println("The total cook time is " + cookTimeMin
+                                       + " min " + cookTimeSec + " sec.");
+                } else {
+                    System.out.println("Max number of food is 3.");
+                }
+            } catch (Exception ex) {
+                System.err.println("Invalid input.");
             }
         } else {
-            System.out.println("Invalid input.");
+            System.out.println("There is no food for the given type.");
         }
         System.out.println("\nDone.");
     }
